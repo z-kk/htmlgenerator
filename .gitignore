@@ -3,5 +3,6 @@ nimblecache/
 htmldocs/
 
 tests/test1
+tests/test2
 
 *.swp

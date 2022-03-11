@@ -24,3 +24,8 @@ func baseOptions*(base: hbase): string =
     result &= optionStr("name", base.name)
   if base.value != "":
     result &= optionStr("value", base.value)
+
+proc add*(node: var hbase, content: string) =
+  ## Add content to contents seq
+  for line in content.splitLines:
+    node.contents.add(line)
