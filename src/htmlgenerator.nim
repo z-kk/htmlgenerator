@@ -1,8 +1,8 @@
 import
-  htmlgenerator / [input, others, base]
+  htmlgenerator / [head, input, others, base]
 
 export
-  input, others
+  head, input, others
 
 export
   base.add
