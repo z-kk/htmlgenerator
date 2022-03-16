@@ -2,6 +2,14 @@ import unittest
 
 import htmlgenerator
 
+test "a":
+  var a: ha
+  check a.toHtml == "<a></a>"
+
+  a.content = "test"
+  a.href = "/hoge"
+  check a.toHtml == "<a href=\"/hoge\">test</a>"
+
 test "div":
   var
     dv: hdiv

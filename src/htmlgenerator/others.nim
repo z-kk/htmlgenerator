@@ -18,6 +18,13 @@ type
 
   hlabel* = object of hbase
 
+  ha* = object of hbase
+    href*: string
+    download*: string
+    `type`*: string
+    rel*: string
+    target*: formtarget
+
   hdiv* = object of hbase
 
   hform* = object of hbase
@@ -31,6 +38,22 @@ func toHtml*(node: hlabel): string =
   result = "<label"
   result &= node.baseOptions
   result &= ">" & node.content & "</label>"
+
+func toHtml*(node: ha): string =
+  ## Generate the HTML `a` element
+  result = "<a"
+  if node.href != "":
+    result &= optionStr("href", node.href)
+  if node.download != "":
+    result &= optionStr("download", node.download)
+  if node.type != "":
+    result &= optionStr("type", node.type)
+  if node.rel != "":
+    result &= optionStr("rel", node.rel)
+  if node.target != ftSelf:
+    result &= optionStr("target", $node.target)
+  result &= node.baseOptions
+  result &= ">" & node.content & "</a>"
 
 func toHtml*(node: hdiv): string =
   ## Generate the HTML `div` element
