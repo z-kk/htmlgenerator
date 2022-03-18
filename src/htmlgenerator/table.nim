@@ -76,6 +76,10 @@ proc add*(node: var htr, th: hth) =
   ## Add `th` object to `tr` object
   node.cols.add(thortd(th: th, isth: true))
 
+proc clear*(node: var htr) =
+  ## Clear `tr` objects seq
+  node.cols = @[]
+
 func toHtmlSeq(node: htr): seq[string] =
   ## Generate the HTML `tr` element seq
   result.add("<tr" & node.baseOptions & ">")

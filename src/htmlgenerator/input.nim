@@ -31,6 +31,7 @@ type
     size*: int
     pattern*, placeholder*: string
     maxlen*, minlen*: int
+    form*: string
     disabled*, readonly*, required*: bool
 
   hbutton* = object of hinput
@@ -56,6 +57,8 @@ func toHtml*(node: hinput): string =
     result &= optionStr("maxlength", $node.maxlen)
   if node.minlen > 0:
     result &= optionStr("minlength", $node.minlen)
+  if node.form != "":
+    result &= optionStr("form", node.form)
   if node.disabled:
     result &= " disabled"
   if node.readonly:
@@ -75,6 +78,8 @@ proc toHtml*(node: hbutton): string =
   else:
     echo "[Warning]: button doesn't have type \"" & $node.type & "\""
   result &= node.baseOptions
+  if node.form != "":
+    result &= optionStr("form", node.form)
   if node.disabled:
     result &= " disabled"
   result &= ">" & node.content & "</button>"
@@ -83,6 +88,8 @@ func toHtml*(node: hcheckbox): string =
   ## Generate the HTML `input` element type `checkbox`
   result = "<input" & optionStr("type", $tpCheckbox)
   result &= node.baseOptions
+  if node.form != "":
+    result &= optionStr("form", node.form)
   if node.checked:
     result &= " checked"
   if node.disabled:
@@ -100,6 +107,8 @@ func toHtml*(node: hradio): string =
   ## Generate the HTML `input` element type `radio`
   result = "<input" & optionStr("type", $tpRadio)
   result &= node.baseOptions
+  if node.form != "":
+    result &= optionStr("form", node.form)
   if node.checked:
     result &= " checked"
   if node.disabled:

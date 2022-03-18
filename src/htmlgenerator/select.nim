@@ -14,6 +14,7 @@ type
 
   hselect* = object of hbase
     size*: int
+    form*: string
     disabled*, required*: bool
     multiple*: bool
     optGroups*: seq[hoptgroup]
@@ -61,6 +62,8 @@ func toHtml*(node: hselect): string =
   result &= node.baseOptions
   if node.size > 0:
     result &= optionStr("size", $node.size)
+  if node.form != "":
+    result &= optionStr("form", node.form)
   if node.disabled:
     result &= " disabled"
   if node.required:
