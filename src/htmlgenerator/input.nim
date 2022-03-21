@@ -35,6 +35,7 @@ type
     disabled*, readonly*, required*: bool
 
   hbutton* = object of hinput
+    formaction*: string
 
   hcheckbox* = object of hinput
     checked*: bool
@@ -80,6 +81,8 @@ proc toHtml*(node: hbutton): string =
   result &= node.baseOptions
   if node.form != "":
     result &= optionStr("form", node.form)
+  if node.formaction != "":
+    result &= optionStr("formaction", node.formaction)
   if node.disabled:
     result &= " disabled"
   result &= ">" & node.content & "</button>"
