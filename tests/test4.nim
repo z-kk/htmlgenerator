@@ -5,9 +5,9 @@ import htmlgenerator
 import strutils
 test "table":
   var tbl: htable
+  var row: htr
   check tbl.toHtml == "<table>\n</table>"
   for i in 0..10:
-    var row: htr
     for j in 0..10:
       if i == 0:
         var th: hth
@@ -26,9 +26,9 @@ test "table":
           td.content = "cell(" & $i & "_" & $j & ")"
           row.add(td)
     if i == 0:
-      tbl.thead.rows.add(row)
+      tbl.thead.add(row)
     else:
-      tbl.tbody.rows.add(row)
+      tbl.tbody.add(row)
   tbl.caption = "test table"
 
   let res = """
