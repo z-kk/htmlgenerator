@@ -90,6 +90,11 @@ func toHtmlSeq(node: htr): seq[string] =
       result.add("  " & col.td.toHtml)
   result.add("</tr>")
 
+proc add*(node: var htbody, row: var htr) =
+  ## Add `tr` object to `tbody` object
+  node.rows.add(row)
+  row.clear
+
 func toHtmlSeq(node: htbody): seq[string] =
   ## Generate the HTML `tbody` element seq
   if node.rows.len == 0:
