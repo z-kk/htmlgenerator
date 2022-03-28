@@ -62,8 +62,7 @@ func toHtml*(node: hdiv): string =
   result &= ">\n"
   if node.content != "":
     result &= "  " & node.content & "\n"
-  for content in node.contents:
-    result &= "  " & content & "\n"
+  result &= node.contents.toContentsStr
   result &= "</div>"
 
 func toHtml*(node: hform): string =
@@ -81,6 +80,5 @@ func toHtml*(node: hform): string =
   result &= ">\n"
   if node.content != "":
     result &= "  " & node.content & "\n"
-  for content in node.contents:
-    result &= "  " & content & "\n"
+  result &= node.contents.toContentsStr
   result &= "</form>"

@@ -26,6 +26,11 @@ type
     tpUrl = "url"
     tpWeek = "week"
 
+  textwrap* = enum
+    twSoft = "soft"
+    twHard = "hard"
+    twOff = "off"
+
   hinput* = object of hbase
     `type`*: inputtype
     size*: int
@@ -41,6 +46,10 @@ type
     checked*: bool
 
   hradio* = object of hcheckbox
+
+  htextarea* = object of hinput
+    rows*, cols*: int
+    wrap*: textwrap
 
 func toHtml*(node: hinput): string =
   ## Generate the HTML `input` element
@@ -124,3 +133,29 @@ func toHtml*(node: hradio): string =
     return
   else:
     return hlabel(content: result & node.content).toHtml
+
+func toHtml*(node: htextarea): string =
+  ## Generate the HTML `textarea` element
+  result = "<textarea"
+  result &= node.baseOptions
+  if node.rows > 0:
+    result &= optionStr("rows", $node.rows)
+  if node.cols > 0:
+    result &= optionStr("cols", $node.cols)
+  if node.wrap != twSoft:
+    result &= optionStr("wrap", $node.wrap)
+  if node.placeholder != "":
+    result &= optionStr("placeholder", node.placeholder)
+  if node.maxlen > 0:
+    result &= optionStr("maxlength", $node.maxlen)
+  if node.minlen > 0:
+    result &= optionStr("minlength", $node.minlen)
+  if node.form != "":
+    result &= optionStr("form", node.form)
+  if node.disabled:
+    result &= " disabled"
+  if node.readonly:
+    result &= " readonly"
+  if node.required:
+    result &= " required"
+  result &= ">" & node.content & "</textarea>"

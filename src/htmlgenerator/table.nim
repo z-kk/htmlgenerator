@@ -132,17 +132,13 @@ func toHtml*(node: htable): string =
   result &= ">\n"
   if node.caption != "":
     result &= "  <caption>" & node.caption & "</caption>\n"
-  for row in node.thead.toHtmlSeq:
-    result &= "  " & row & "\n"
+  result &= node.thead.toHtmlSeq.toContentsStr
   if node.thead.rows.len + node.tbody.rows.len + node.tfoot.rows.len > 0:
     var body = node.tbody
     body.rows &= node.rows
-    for row in body.toHtmlSeq:
-      result &= "  " & row & "\n"
+    result &= body.toHtmlSeq.toContentsStr
   else:
     for row in node.rows:
-      for cell in row.toHtmlSeq:
-        result &= "  " & cell & "\n"
-  for row in node.tfoot.toHtmlSeq:
-    result &= "  " & row & "\n"
+      result &= row.toHtmlSeq.toContentsStr
+  result &= node.tfoot.toHtmlSeq.toContentsStr
   result &= "</table>"

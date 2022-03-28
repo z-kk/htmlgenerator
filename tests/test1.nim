@@ -2,6 +2,7 @@ import unittest
 
 import htmlgenerator
 
+import strutils
 test "label":
   var lbl: hlabel
   check lbl.toHtml == "<label></label>"
@@ -40,3 +41,15 @@ test "radio":
   rdo.readonly = true
   rdo.content = "tradio"
   check rdo.toHtml == """<label><input type="radio" readonly />tradio</label>"""
+
+test "textarea":
+  var tarea: htextarea
+  check tarea.toHtml == "<textarea></textarea>"
+  tarea.content = "hoge\nfuga"
+  tarea.rows = 3
+  tarea.wrap = twSoft
+  tarea.placeholder = "ttextarea"
+  let res = """
+    <textarea rows="3" placeholder="ttextarea">hoge
+    fuga</textarea>""".unindent(4)
+  check tarea.toHtml == res

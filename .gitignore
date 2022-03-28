@@ -7,5 +7,6 @@ tests/test2
 tests/test3
 tests/test4
 tests/test5
+tests/test6
 
 *.swp
