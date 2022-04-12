@@ -29,3 +29,19 @@ proc add*(node: var hbase, content: string) =
   ## Add content to contents seq
   for line in content.splitLines:
     node.contents.add(line)
+
+func toContentsStr*(contents: seq[string]): string =
+  ## Make child contents HTML string contain indent
+  var isIndent = true
+  for content in contents:
+    if isIndent:
+      result &= "  "
+    result &= content & "\n"
+    if content.contains("<textarea"):
+      isIndent = false
+    if content.contains("</textarea>"):
+      isIndent = true
+
+func toContentsStr*(contents: string): string =
+  ## Make child contents HTML string contain indent
+  contents.splitLines.toContentsStr
