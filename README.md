@@ -1,4 +1,4 @@
-# htmlgenerator
+# htmlgenerator [![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://github.com/yglukhov/nimble-tag)
 Generate HTML string by nim object
 
 ## Use
