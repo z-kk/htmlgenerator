@@ -20,6 +20,9 @@ type
     optGroups*: seq[hoptgroup]
     options*: seq[hoption]
 
+  hdatalist* = object of hbase
+    options*: seq[hoption]
+
 func optionOption(node:hoption): string =
   ## Generate `option` or `optgroup` HTML options
   if node.value != "":
@@ -77,3 +80,16 @@ func toHtml*(node: hselect): string =
   for opt in node.options:
     result &= "  " & opt.toHtml & "\n"
   result &= "</select>"
+
+func add*(node: var hdatalist, opt: hoption) =
+  ## Add `option` object to `datalist` object
+  node.options.add(opt)
+
+func toHtml*(node: hdatalist): string =
+  ## Generate the HTML `datalist` element
+  result = "<datalist"
+  result &= node.baseOptions
+  result &= ">\n"
+  for opt in node.options:
+    result &= "  " & opt.toHtml & "\n"
+  result &= "</datalist>"

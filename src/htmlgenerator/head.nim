@@ -57,7 +57,7 @@ func newScript*(path = ""): hscript =
   ## Make hscript object
   result.src = path
 
-func toHtml(spt: hscript): string =
+func toHtml*(spt: hscript): string =
   ## Generate the HTML `script` element
   result = "<script"
   if spt.type != "":
