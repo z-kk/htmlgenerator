@@ -27,3 +27,22 @@ test "select":
       <option value="test5">test5</option>
     </select>""".unindent(4)
   check sel.toHtml == res
+
+test "datalist":
+  var dls: hdatalist
+  check dls.toHtml == "<datalist>\n</datalist>"
+  for i in 1..5:
+    var opt: hoption
+    opt.value = "test" & $i
+    dls.add(opt)
+  dls.id = "datalist"
+
+  let res = """
+    <datalist id="datalist">
+      <option value="test1"></option>
+      <option value="test2"></option>
+      <option value="test3"></option>
+      <option value="test4"></option>
+      <option value="test5"></option>
+    </datalist>""".unindent(4)
+  check dls.toHtml == res
