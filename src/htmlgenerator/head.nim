@@ -40,7 +40,7 @@ func newLink*(path = ""): hlink =
   result.rel = "stylesheet"
   result.href = path
 
-func toHtml(lnk: hlink): string =
+func toHtml*(lnk: hlink): string =
   ## Generate the HTML `link` element
   result = "<link"
   if lnk.rel != "":
