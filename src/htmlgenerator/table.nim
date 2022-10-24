@@ -56,7 +56,12 @@ func toHtml(node: htd): string =
   ## Generate the HTML `td` element
   result = "<td"
   result &= node.tdOption
-  result &= ">" & node.content & "</td>"
+  result &= ">\n"
+  if node.content != "":
+    result &= "  " & node.content & "\n"
+  for content in node.contents:
+    result &= "  " & content & "\n"
+  result &= "</td>"
 
 func toHtml(node: hth): string =
   ## Generate the HTML `th` element
@@ -66,7 +71,12 @@ func toHtml(node: hth): string =
     result &= optionStr("scope", $node.scope)
   if node.abbr != "":
     result &= optionStr("abbr", node.abbr)
-  result &= ">" & node.content & "</th>"
+  result &= ">\n"
+  if node.content != "":
+    result &= "  " & node.content & "\n"
+  for content in node.contents:
+    result &= "  " & content & "\n"
+  result &= "</th>"
 
 proc add*(node: var htr, td: htd) =
   ## Add `td` object to `tr` object
