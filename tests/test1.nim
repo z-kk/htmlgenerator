@@ -19,6 +19,8 @@ test "input":
   ipt.name = "tname"
   ipt.value = "tvalue"
   check ipt.toHtml == """<input type="hidden" id="tid" class="tclass1 tclass2" name="tname" value="tvalue" />"""
+  ipt.title = "ttitle"
+  check ipt.toHtml == """<label>ttitle<input type="hidden" id="tid" class="tclass1 tclass2" name="tname" value="tvalue" /></label>"""
 
 test "button":
   var btn: hbutton
@@ -53,3 +55,5 @@ test "textarea":
     <textarea rows="3" placeholder="ttextarea">hoge
     fuga</textarea>""".unindent(4)
   check tarea.toHtml == res
+  tarea.title = "ttitle"
+  check tarea.toHtml == "<label>ttitle$1</label>" % [res]

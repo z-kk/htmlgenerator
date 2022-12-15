@@ -52,21 +52,31 @@ func tdOption(node: htd): string =
     result &= optionStr("rowspan", "0")
   result &= node.baseOptions
 
-func toHtml(node: htd): string =
+func toHtmlSeq(node: htd): seq[string] =
   ## Generate the HTML `td` element
-  result = "<td"
-  result &= node.tdOption
-  result &= ">" & node.content & "</td>"
+  result.add("<td" & node.tdOption & ">")
+  if node.content != "":
+    result.add("  " & node.content)
+  for content in node.contents:
+    result.add("  " & content)
+  result.add("</td>")
 
-func toHtml(node: hth): string =
+func toHtmlSeq(node: hth): seq[string] =
   ## Generate the HTML `th` element
-  result = "<th"
-  result &= node.tdOption
+  var str: string
+  str = "<th"
+  str &= node.tdOption
   if node.scope != hsAuto:
-    result &= optionStr("scope", $node.scope)
+    str &= optionStr("scope", $node.scope)
   if node.abbr != "":
-    result &= optionStr("abbr", node.abbr)
-  result &= ">" & node.content & "</th>"
+    str &= optionStr("abbr", node.abbr)
+  str &= ">"
+  result.add(str)
+  if node.content != "":
+    result.add("  " & node.content)
+  for content in node.contents:
+    result.add("  " & content)
+  result.add("</th>")
 
 proc add*(node: var htr, td: htd) =
   ## Add `td` object to `tr` object
@@ -85,9 +95,11 @@ func toHtmlSeq(node: htr): seq[string] =
   result.add("<tr" & node.baseOptions & ">")
   for col in node.cols:
     if col.isth:
-      result.add("  " & col.th.toHtml)
+      for line in col.th.toHtmlSeq:
+        result.add("  " & line)
     else:
-      result.add("  " & col.td.toHtml)
+      for line in col.td.toHtmlSeq:
+        result.add("  " & line)
   result.add("</tr>")
 
 proc add*(node: var htbody, row: var htr) =

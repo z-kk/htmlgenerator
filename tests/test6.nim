@@ -65,22 +65,38 @@ test "combination":
         <table>
           <tbody>
             <tr>
-              <th>type</th>
-              <th>element</th>
+              <th>
+                type
+              </th>
+              <th>
+                element
+              </th>
             </tr>
             <tr>
-              <th>input</th>
-              <td><input name="tname1" /></td>
+              <th>
+                input
+              </th>
+              <td>
+                <input name="tname1" />
+              </td>
             </tr>
             <tr>
-              <th>textarea</th>
-              <td><textarea name="tname2">test
+              <th>
+                textarea
+              </th>
+              <td>
+                <textarea name="tname2">test
     hoge
-    fuga</textarea></td>
+    fuga</textarea>
+              </td>
             </tr>
             <tr>
-              <th>button</th>
-              <td><button class="tbtncls" name="tname3" value="tvalue">tbutton</button></td>
+              <th>
+                button
+              </th>
+              <td>
+                <button class="tbtncls" name="tname3" value="tvalue">tbutton</button>
+              </td>
             </tr>
           </tbody>
         </table>

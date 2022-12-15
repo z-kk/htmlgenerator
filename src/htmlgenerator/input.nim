@@ -33,6 +33,7 @@ type
 
   hinput* = object of hbase
     `type`*: inputtype
+    title*: string
     size*: int
     pattern*, placeholder*: string
     maxlen*, minlen*: int
@@ -76,6 +77,8 @@ func toHtml*(node: hinput): string =
   if node.required:
     result &= " required"
   result &= " />"
+  if node.title != "":
+    return hlabel(content: node.title & result).toHtml
 
 proc toHtml*(node: hbutton): string =
   ## Generate the HTML `button` element
@@ -110,9 +113,7 @@ func toHtml*(node: hcheckbox): string =
     result &= " readonly"
   result &= " />"
 
-  if node.content == "":
-    return
-  else:
+  if node.content != "":
     return hlabel(content: result & node.content).toHtml
 
 func toHtml*(node: hradio): string =
@@ -129,9 +130,7 @@ func toHtml*(node: hradio): string =
     result &= " readonly"
   result &= " />"
 
-  if node.content == "":
-    return
-  else:
+  if node.content != "":
     return hlabel(content: result & node.content).toHtml
 
 func toHtml*(node: htextarea): string =
@@ -159,3 +158,5 @@ func toHtml*(node: htextarea): string =
   if node.required:
     result &= " required"
   result &= ">" & node.content & "</textarea>"
+  if node.title != "":
+    return hlabel(content: node.title & result).toHtml
